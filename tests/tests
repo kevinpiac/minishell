@@ -1,0 +1,235 @@
+#!bin/sh
+
+dot=.
+function print_result(){
+  diff mine real | cat -e > dif
+  if [ -s dif ]
+  then
+    echo "TEST $1      FAIL - $2 with option -$3"
+    else
+    echo "TEST $1      OK"
+  fi
+}
+
+options=(1 l R a r t ltr)
+
+# TEST 1___________________
+
+test_desc=Simple_directory_files
+test_nbr=1
+count=0
+for option in ${options[@]}
+do
+  :
+  float=$test_nbr$dot$count
+  ((count++))
+  mkdir tests && cd tests && touch 1 3 2 4 a b d c e .hidden && cd ..
+  ./ft_ls -$option tests | cat > mine
+  ls -1$option tests | cat > real
+  print_result $float $test_desc $option
+  rm -rf tests dif real mine
+done
+echo ""
+
+# TEST 2____________________
+
+test_desc=Simple_directory_dirs
+test_nbr=2
+count=0
+for option in ${options[@]}
+do
+  :
+  float=$test_nbr$dot$count
+  ((count++))
+  mkdir tests && cd tests && mkdir 1 3 2 4 a d c e .hidden && cd ..
+  ./ft_ls -$option tests | cat > mine
+  ls -1$option tests | cat > real
+  print_result $float $test_desc $option
+  rm -rf tests dif real mine
+done
+echo ""
+
+# TEST 3____________________
+
+test_desc=Simple_directory_filesAndDirs
+test_nbr=3
+count=0
+for option in ${options[@]}
+do
+  :
+  float=$test_nbr$dot$count
+  ((count++))
+  mkdir tests && cd tests && mkdir 1 3 2 4 a d c e .hide_me && touch bibi baba bobo && cd ..
+  ./ft_ls -$option tests | cat > mine
+  ls -1$option tests | cat > real
+  print_result $float $test_desc $option
+  rm -rf tests dif real mine
+done
+echo ""
+
+# TEST 4____________________
+
+test_desc=simple_one_file_only
+test_nbr=4
+count=0
+for option in ${options[@]}
+do
+  :
+  float=$test_nbr$dot$count
+  ((count++))
+  touch testfile
+  ./ft_ls -$option testfile | cat > mine
+  ls -1$option testfile | cat > real
+  print_result $float $test_desc $option
+  rm -rf mine real dif testfile
+done
+echo ""
+
+# TEST 5____________________
+
+test_desc=simple_one_hidden_file_only
+test_nbr=5
+count=0
+for option in ${options[@]}
+do
+  :
+  float=$test_nbr$dot$count
+  ((count++))
+  touch .testfile
+  ./ft_ls -$option .testfile | cat > mine
+  ls -1$option .testfile | cat > real
+  print_result $float $test_desc $option
+  rm -rf mine real dif .testfile
+done
+echo ""
+
+# TEST 6____________________
+
+test_desc=simple_empty_dir
+test_nbr=6
+count=0
+for option in ${options[@]}
+do
+  :
+  float=$test_nbr$dot$count
+  ((count++))
+  mkdir tests
+  ./ft_ls -$option tests | cat > mine
+  ls -1$option tests | cat > real
+  print_result $float $test_desc $option
+  rm -rf mine real dif tests
+done
+echo ""
+
+# TEST 7____________________
+
+test_desc=multiple_empty_dirs
+test_nbr=7
+count=0
+for option in ${options[@]}
+do
+  :
+  float=$test_nbr$dot$count
+  ((count++))
+  mkdir tests && cd tests && mkdir 1 2 3 a b c d e && cd ..
+  ./ft_ls -$option tests | cat > mine
+  ls -1$option tests | cat > real
+  print_result $float $test_desc $option
+  rm -rf mine real dif tests
+done
+echo ""
+
+# TEST 8____________________
+options=(1 l R a r t)
+test_desc=multiple_dirs_one_empty
+test_nbr=8
+count=0
+for option in ${options[@]}
+do
+  :
+  float=$test_nbr$dot$count
+  ((count++))
+  mkdir tests testsempty && cd tests && mkdir 1 2 3 && cd ..
+  ./ft_ls -$option tests testsempty | cat > mine
+  ls -1$option tests testsempty | cat > real
+  print_result $float $test_desc $option
+  rm -rf mine real dif tests testsempty
+done
+echo ""
+
+# TEST 9____________________
+options=(1 l R a r t ltr)
+test_desc=without_param
+test_nbr=9
+count=0
+for option in ${options[@]}
+do
+  :
+  float=$test_nbr$dot$count
+  ((count++))
+  mkdir tests && cd tests && mkdir dir dir1 && touch file file1 dir/kikou dir1/.youyou
+  ../ft_ls -$option | cat > ../mine
+  ls -1$option | cat > ../real
+  cd ..
+  print_result $float $test_desc $option
+  rm -rf mine real dif tests
+done
+echo ""
+
+# TEST 10____________________
+
+test_desc=all_files_modes
+test_nbr=10
+count=0
+for option in ${options[@]}
+do
+  :
+  float=$test_nbr$dot$count
+  ((count++))
+  mkdir tests && cd tests && touch 1 2 3 4 5 6 7 8 9 a b c d e f g h && mkdir dir
+  chmod 000 1 && chmod 111 2 && chmod 333 3 && chmod 555 4 && chmod 777 5
+  chmod 4000 6 && chmod 2000 7 && chmod 1000 8 && chmod 0400 9 && chmod 0200 a
+  chmod 0100 b && chmod 0040 c && chmod 0020 d && chmod 0010 e && chmod 0004 f
+  chmod 0002 g && chmod 0001 h
+  cd ..
+  ./ft_ls -$option tests | cat > mine
+  ls -1$option tests | cat > real
+  print_result $float $test_desc $option
+  rm -rf mine real dif tests
+done
+echo ""
+
+# TEST 11____________________
+
+test_desc=all_bin_with_year_date_format
+test_nbr=11
+count=0
+for option in ${options[@]}
+do
+  :
+  float=$test_nbr$dot$count
+  ((count++))
+  ./ft_ls -$option /bin | cat > mine
+  ls -1$option /bin | cat > real
+  print_result $float $test_desc $option
+  rm -rf mine real dif
+done
+echo ""
+
+# TEST 12____________________
+options=(1 l a r t)
+
+test_desc=check_devices
+test_nbr=12
+count=0
+for option in ${options[@]}
+do
+  :
+  float=$test_nbr$dot$count
+  ((count++))
+  ./ft_ls -$option /dev | cat > mine
+  ls -1$option /dev | cat > real
+  print_result $float $test_desc $option
+  rm -rf mine real dif
+done
+echo ""
