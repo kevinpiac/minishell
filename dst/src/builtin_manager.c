@@ -24,9 +24,8 @@ t_bm				*bm_new(void)
 
 void				bm_init(t_bm *this)
 {
-	this->builtins = ft_strsplit("cd, nom, oui", ',');
+	this->builtins = ft_strsplit(BUILTINS_LIST, ',');
 	this->builtins_func[0] = &builtin_cd;
-	this->builtins_func[1] = &builtin_exit;
 	//this->execute = &bm_execute;
 }
 
@@ -46,8 +45,6 @@ int					bm_search(t_bm *this, char *name)
 	{
 		if (ft_strequ(this->builtins[i], name))
 			return (i);
-		ft_putendl(this->builtins[i]);
-		ft_putendl(name);
 		i++;
 	}
 	return (-1);
@@ -56,7 +53,7 @@ int					bm_search(t_bm *this, char *name)
 void				bm_execute(t_bm *this, int i, char **args)
 {
 	void			(*func_ptr)(char **args);
-
+	ft_putendl("executing : ");
 	func_ptr = this->builtins_func[i];
 	func_ptr(args);
 }
