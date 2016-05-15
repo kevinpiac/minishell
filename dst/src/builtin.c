@@ -14,20 +14,30 @@
 
 int			builtin_cd(char **args)
 {
-	ft_putendl("Cd builtin");
-	(void)args;
+	if (args[1] != NULL)
+	{
+		if (chdir(args[1]) != 0)
+		{
+			ft_putstr_fd("cd: no such file or directory: ", 2);
+			ft_putendl_fd(args[1], 2);
+		}
+	}
 	return (0);
 }
 
 int			builtin_exit(void)
 {
-	ft_putendl("Exit()");
+	ft_putendl("Exiting...");
 	return (1);
 }
 
-int			builtin_env(char **args)
+int			builtin_env(char **args, char **env)
 {
-	ft_putendl("Env builtin");
+	int			i;
+
+	i = 0;
+	while (env[i])
+		ft_putendl(env[i++]);
 	(void)args;
 	return (0);
 }

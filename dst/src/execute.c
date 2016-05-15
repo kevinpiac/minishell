@@ -22,7 +22,7 @@ int				execute(char **args, char **env)
 	if (args[0] == NULL)
 		return (0);
 	if ((i = bm_search(bm, args[0])) != -1)
-		return (bm_execute(bm, i, args));
+		return (bm_execute(bm, i, args, env));
 	execute_binary(args, env);
 	return (0);
 }

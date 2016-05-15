@@ -48,7 +48,7 @@ int					bm_search(t_bm *this, char *name)
 	return (-1);
 }
 
-int					bm_execute(t_bm *this, int i, char **args)
+int					bm_execute(t_bm *this, int i, char **args, char **env)
 {
 	int			(*builtins_ptr[5])();
 
@@ -58,5 +58,5 @@ int					bm_execute(t_bm *this, int i, char **args)
 	builtins_ptr[3] = &builtin_setenv;
 	builtins_ptr[4] = &builtin_unsetenv;
 	free(this);
-	return (builtins_ptr[i](args));
+	return (builtins_ptr[i](args, env));
 }

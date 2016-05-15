@@ -30,7 +30,7 @@ t_bm					*bm_new(void);
 void					bm_init(t_bm *this);
 void					bm_del(t_bm *this);
 int						bm_search(t_bm *this, char *name);
-int						bm_execute(t_bm *this, int func_index, char **args);
+int						bm_execute(t_bm *this, int func_index, char **args, char **env);
 
 /*
 **	SHELL.C
@@ -45,16 +45,9 @@ void					shell_launch(char **av);
 
 int						builtin_cd(char **args);
 int						builtin_exit(void);
-int						builtin_env(char **args);
+int						builtin_env(char **args, char **env);
 int						builtin_setenv(char **args);
 int						builtin_unsetenv(char **args);
-
-/*
-**	BUILTIN_MANAGER.C
-*/
-
-int						bm_search(t_bm *this, char *name);
-int						bm_execute(t_bm *this, int i, char **args);
 
 /*
 ** EXECUTE.C
