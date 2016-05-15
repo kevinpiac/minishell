@@ -40,10 +40,16 @@ void					shell_loop(char **env);
 void					shell_launch(char **av);
 
 /*
+**	ENV.C
+*/
+
+char					*env_findvalue(char **env, char *name);
+
+/*
 **	BUILTIN.C
 */
 
-int						builtin_cd(char **args);
+int						builtin_cd(char **args, char **env);
 int						builtin_exit(void);
 int						builtin_env(char **args, char **env);
 int						builtin_setenv(char **args);

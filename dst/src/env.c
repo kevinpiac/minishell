@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.c                                          :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kpiacent <kpiacent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,48 +12,21 @@
 
 #include "minishell.h"
 
-int			builtin_cd(char **args, char **env)
-{
-	if (args[1] == NULL || ft_strequ(args[1], "~"))
-	{
-		if (chdir(env_findvalue(env, "HOME")) != 0)
-			ft_putendl_fd("cd: an error occured", 2);
-	}
-	else if (chdir(args[1]) != 0)
-	{
-		ft_putstr_fd("cd: no such file or directory: ", 2);
-		ft_putendl_fd(args[1], 2);
-	}
-	return (0);
-}
-
-int			builtin_exit(void)
-{
-	ft_putendl("Exiting...");
-	return (1);
-}
-
-int			builtin_env(char **args, char **env)
+char			*env_findvalue(char **env, char *name)
 {
 	int			i;
+	char		**split;
+	char		*value;
 
 	i = 0;
+	value = NULL;
 	while (env[i])
-		ft_putendl(env[i++]);
-	(void)args;
-	return (0);
-}
-
-int			builtin_setenv(char **args)
-{
-	ft_putendl("Setenv builtin");
-	(void)args;
-	return (0);
-}
-
-int			builtin_unsetenv(char **args)
-{
-	ft_putendl("Unsetenv builtin");
-	(void)args;
-	return (0);
+	{
+		split = ft_strsplit(env[i], '=');
+		if (ft_strequ(split[0], name))
+			value = ft_strdup(split[1]);
+		free(split);
+		i++;
+	}
+	return (value);
 }
