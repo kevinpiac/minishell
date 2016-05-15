@@ -12,18 +12,19 @@
 
 #include "minishell.h"
 
-void			execute(char **args, char **env)
+int				execute(char **args, char **env)
 {
 	t_bm			*bm;
 	int				i;
 
 	bm = bm_new();
 	if (args[0] == NULL)
-		return ;
+		return (1);
 	if ((i = bm->search(bm, args[0])) != -1)
-		bm->execute(bm, i, args);
+		return (bm->execute(bm, i, args));
 	else
 		execute_binary(args, env);
+	return (1);
 }
 
 void			execute_binary(char **args, char **env)

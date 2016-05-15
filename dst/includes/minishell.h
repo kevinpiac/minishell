@@ -62,7 +62,7 @@ int						bm_execute(t_bm *this, int i, char **args);
 ** EXECUTE.C
 */
 
-void					execute(char **args, char **env);
+int						execute(char **args, char **env);
 void					execute_binary(char **args, char **env);
 
 #endif

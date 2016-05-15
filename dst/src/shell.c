@@ -28,8 +28,10 @@ void			shell_loop(char **env)
 	char			*line;
 	char			**args;
 	int				args_c;
+	int				status;
 
-	while (1)
+	status = 1;
+	while (status)
 	{
 		ft_putstr("$> ");
 		//1. get args
@@ -39,7 +41,7 @@ void			shell_loop(char **env)
 			free(line);
 			args_c = get_ac(args);
 			//3. execute args
-			execute(args, env);
+			status = execute(args, env);
 		}
 	}
 }
