@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell.c                                            :+:      :+:    :+:   */
+/*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kpiacent <kpiacent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,40 +12,28 @@
 
 #include "minishell.h"
 
-//remove and add to libft.
-static int		get_ac(char **av)
+int				execute_builtin(char **args)
 {
 	int				i;
+	t_bm			*bm;
 
 	i = 0;
-	while (av[i])
-		i++;
-	return (i);
+	(void)args;
+	bm = bm_new();
+
+	return (1);
 }
 
-void			shell_execute(char **args, char **env)
+void			execute_binary(char **args, char **env)
 {
-	(void)env;
-	if (execute_builtin(args) == -1)
-		execute_binary(args, env);
-}
+	pid_t			pid;
+	int				status;
 
-void			shell_loop(char **env)
-{
-	char			*line;
-	char			**args;
-	int				args_c;
-
-	while (1)
-	{
-		ft_putstr("$> ");
-		//1. get args
-		if (get_next_line(1, &line))
-		{	//2. split args
-			args = ft_strsplit(line, ' ');
-			args_c = get_ac(args);
-			//3. execute args
-			shell_execute(args, env);
-		}
-	}
+	pid = fork();
+	if (pid > 1)
+		wait(&status);
+	else if (pid == 0)
+		execve(args[0], args, env);
+	else
+		ft_putendl_fd("ERROR", 2);
 }

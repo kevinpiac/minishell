@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell.c                                            :+:      :+:    :+:   */
+/*   builtin_manager.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kpiacent <kpiacent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,40 +12,17 @@
 
 #include "minishell.h"
 
-//remove and add to libft.
-static int		get_ac(char **av)
+t_bm				*bm_new(void)
 {
-	int				i;
+	t_bm		*bm;
 
-	i = 0;
-	while (av[i])
-		i++;
-	return (i);
+	if (!(bm = ft_memalloc(sizeof(bm) * 1)))
+		return (NULL);
+	bm_init(bm);
+	return (bm);
 }
 
-void			shell_execute(char **args, char **env)
+void				bm_init(t_bm *this)
 {
-	(void)env;
-	if (execute_builtin(args) == -1)
-		execute_binary(args, env);
-}
-
-void			shell_loop(char **env)
-{
-	char			*line;
-	char			**args;
-	int				args_c;
-
-	while (1)
-	{
-		ft_putstr("$> ");
-		//1. get args
-		if (get_next_line(1, &line))
-		{	//2. split args
-			args = ft_strsplit(line, ' ');
-			args_c = get_ac(args);
-			//3. execute args
-			shell_execute(args, env);
-		}
-	}
+	this->bultins = ft_strsplit(BUILTINS_LIST, ',');
 }

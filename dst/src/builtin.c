@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell.c                                            :+:      :+:    :+:   */
+/*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kpiacent <kpiacent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,40 +12,37 @@
 
 #include "minishell.h"
 
-//remove and add to libft.
-static int		get_ac(char **av)
+int			builtin_cd(char **args)
 {
-	int				i;
-
-	i = 0;
-	while (av[i])
-		i++;
-	return (i);
+	ft_putendl("Cd builtin");
+	(void)args;
+	return (0);
 }
 
-void			shell_execute(char **args, char **env)
+int			builtin_exit(char **args)
 {
-	(void)env;
-	if (execute_builtin(args) == -1)
-		execute_binary(args, env);
+	ft_putendl("exit builtin");
+	(void)args;
+	return (0);
 }
 
-void			shell_loop(char **env)
+int			builtin_env(char **args)
 {
-	char			*line;
-	char			**args;
-	int				args_c;
+	ft_putendl("Env builtin");
+	(void)args;
+	return (0);
+}
 
-	while (1)
-	{
-		ft_putstr("$> ");
-		//1. get args
-		if (get_next_line(1, &line))
-		{	//2. split args
-			args = ft_strsplit(line, ' ');
-			args_c = get_ac(args);
-			//3. execute args
-			shell_execute(args, env);
-		}
-	}
+int			builtin_setenv(char **args)
+{
+	ft_putendl("Setenv builtin");
+	(void)args;
+	return (0);
+}
+
+int			builtin_unsetenv(char **args)
+{
+	ft_putendl("Unsetenv builtin");
+	(void)args;
+	return (0);
 }
