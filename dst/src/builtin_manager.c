@@ -25,8 +25,8 @@ t_bm				*bm_new(void)
 void				bm_init(t_bm *this)
 {
 	this->builtins = ft_strsplit(BUILTINS_LIST, ',');
-	this->builtins_func[0] = &builtin_cd;
-	//this->execute = &bm_execute;
+	this->execute = &bm_execute;
+	this->search = &bm_search;
 }
 
 void				bm_del(t_bm *this)
@@ -50,10 +50,15 @@ int					bm_search(t_bm *this, char *name)
 	return (-1);
 }
 
-void				bm_execute(t_bm *this, int i, char **args)
+int					bm_execute(t_bm *this, int i, char **args)
 {
-	void			(*func_ptr)(char **args);
-	ft_putendl("executing : ");
-	func_ptr = this->builtins_func[i];
-	func_ptr(args);
+	int			(*builtins_ptr[5])();
+
+	ft_putnbr(i);	(void)this;
+	builtins_ptr[0] = &builtin_cd;
+	builtins_ptr[1] = &builtin_exit;
+	builtins_ptr[2] = &builtin_env;
+	builtins_ptr[3] = &builtin_setenv;
+	builtins_ptr[4] = &builtin_unsetenv;
+	return (builtins_ptr[i](args));
 }

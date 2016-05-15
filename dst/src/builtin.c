@@ -12,32 +12,36 @@
 
 #include "minishell.h"
 
-void		builtin_cd(char **args)
+int			builtin_cd(char **args)
 {
 	ft_putendl("Cd builtin");
 	(void)args;
+	return (1);
 }
 
-void		builtin_exit(char **args)
+int			builtin_exit(void)
 {
-	ft_putendl("exit builtin");
-	(void)args;
+	ft_putendl("Exit()");
+	return (0);
 }
 
-void		builtin_env(char **args)
+int			builtin_env(char **args)
 {
 	ft_putendl("Env builtin");
 	(void)args;
+	return (1);
 }
 
-void		builtin_setenv(char **args)
+int			builtin_setenv(char **args)
 {
 	ft_putendl("Setenv builtin");
 	(void)args;
+	return (1);
 }
 
-void		builtin_unsetenv(char **args)
+int			builtin_unsetenv(char **args)
 {
 	ft_putendl("Unsetenv builtin");
 	(void)args;
+	return (1);
 }

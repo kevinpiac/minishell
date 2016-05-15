@@ -36,6 +36,7 @@ void			shell_loop(char **env)
 		if (get_next_line(1, &line))
 		{	//2. split args
 			args = ft_strsplit(line, ' ');
+			free(line);
 			args_c = get_ac(args);
 			//3. execute args
 			execute(args, env);
