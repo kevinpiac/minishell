@@ -33,7 +33,7 @@ void			execute_binary(char **args, char **env)
 	int				status;
 	char			*bin;
 
-	bin = ft_strjoin("/bin/", args[0]);
+	bin = ft_strjoin(env_findvalue(env, "PATH"), args[0]);
 	pid = fork();
 	if (pid > 1)
 		wait(&status);
