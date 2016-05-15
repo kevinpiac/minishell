@@ -13,8 +13,14 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <sys/wait.h>
 # include "../libft/includes/libft.h"
 
+/*
+**	SHELL.C
+*/
 
+void			shell_loop(void);
+void			shell_launch(char **av);
 
 #endif

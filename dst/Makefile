@@ -16,7 +16,7 @@ NAME = minishell
 L_DIR = libft/
 F_DIR = src/
 H_DIR = ./includes
-FILES = main.c
+FILES = main.c shell.c
 FILES_PATH = $(addprefix $(F_DIR), $(FILES))
 
 TMP = Makefile~  $(F_DIR)/$(NAME).h~ $(NAME)~ $(FILES_PATH:.c=.c~)
