@@ -23,13 +23,15 @@
 
 typedef struct 			s_bm
 {
-	char				**bultins;
-	void				(*builtin_cd)(char **args);
-	void				(*builtin_exit)(char **args);
+	char				**builtins;
+	void				(*builtins_func[4]);
 }						t_bm;
 
 t_bm					*bm_new(void);
 void					bm_init(t_bm *this);
+void					bm_del(t_bm *this);
+int						bm_search(t_bm *this, char *name);
+void					bm_execute(t_bm *this, int func_index, char **args);
 
 /*
 **	SHELL.C
@@ -42,16 +44,17 @@ void					shell_launch(char **av);
 **	BUILTIN.C
 */
 
-int						builtin_cd(char **args);
-int						builtin_exit(char **args);
-int						builtin_env(char **args);
-int						builtin_setenv(char **args);
-int						builtin_unsetenv(char **args);
+void					builtin_cd(char **args);
+void					builtin_exit(char **args);
+void					builtin_env(char **args);
+void					builtin_setenv(char **args);
+void					builtin_unsetenv(char **args);
 
 /*
 **	BUILTIN.C
 */
 
+void					execute(char **args, char **env);
 void					execute_binary(char **args, char **env);
 int						execute_builtin(char **args);
 

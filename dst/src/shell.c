@@ -23,13 +23,6 @@ static int		get_ac(char **av)
 	return (i);
 }
 
-void			shell_execute(char **args, char **env)
-{
-	(void)env;
-	if (execute_builtin(args) == -1)
-		execute_binary(args, env);
-}
-
 void			shell_loop(char **env)
 {
 	char			*line;
@@ -45,7 +38,7 @@ void			shell_loop(char **env)
 			args = ft_strsplit(line, ' ');
 			args_c = get_ac(args);
 			//3. execute args
-			shell_execute(args, env);
+			execute(args, env);
 		}
 	}
 }
