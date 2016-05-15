@@ -25,8 +25,6 @@ t_bm				*bm_new(void)
 void				bm_init(t_bm *this)
 {
 	this->builtins = ft_strsplit(BUILTINS_LIST, ',');
-	this->execute = &bm_execute;
-	this->search = &bm_search;
 }
 
 void				bm_del(t_bm *this)

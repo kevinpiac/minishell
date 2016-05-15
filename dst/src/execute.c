@@ -17,11 +17,12 @@ int				execute(char **args, char **env)
 	t_bm			*bm;
 	int				i;
 
+	i = -1;
 	bm = bm_new();
 	if (args[0] == NULL)
 		return (0);
-	if ((i = bm->search(bm, args[0])) != -1)
-		return (bm->execute(bm, i, args));
+	if ((i = bm_search(bm, args[0])) != -1)
+		return (bm_execute(bm, i, args));
 	execute_binary(args, env);
 	return (0);
 }

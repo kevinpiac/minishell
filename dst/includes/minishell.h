@@ -24,8 +24,6 @@
 typedef struct 			s_bm
 {
 	char				**builtins;
-	int					(*execute)(struct s_bm *self, int i, char **args);
-	int					(*search)(struct s_bm *self, char *name);
 }						t_bm;
 
 t_bm					*bm_new(void);
