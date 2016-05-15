@@ -54,11 +54,11 @@ int					bm_execute(t_bm *this, int i, char **args)
 {
 	int			(*builtins_ptr[5])();
 
-	ft_putnbr(i);	(void)this;
 	builtins_ptr[0] = &builtin_cd;
 	builtins_ptr[1] = &builtin_exit;
 	builtins_ptr[2] = &builtin_env;
 	builtins_ptr[3] = &builtin_setenv;
 	builtins_ptr[4] = &builtin_unsetenv;
+	free(this);
 	return (builtins_ptr[i](args));
 }

@@ -19,12 +19,11 @@ int				execute(char **args, char **env)
 
 	bm = bm_new();
 	if (args[0] == NULL)
-		return (1);
+		return (0);
 	if ((i = bm->search(bm, args[0])) != -1)
 		return (bm->execute(bm, i, args));
-	else
-		execute_binary(args, env);
-	return (1);
+	execute_binary(args, env);
+	return (0);
 }
 
 void			execute_binary(char **args, char **env)

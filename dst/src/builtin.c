@@ -16,32 +16,32 @@ int			builtin_cd(char **args)
 {
 	ft_putendl("Cd builtin");
 	(void)args;
-	return (1);
+	return (0);
 }
 
 int			builtin_exit(void)
 {
 	ft_putendl("Exit()");
-	return (0);
+	return (1);
 }
 
 int			builtin_env(char **args)
 {
 	ft_putendl("Env builtin");
 	(void)args;
-	return (1);
+	return (0);
 }
 
 int			builtin_setenv(char **args)
 {
 	ft_putendl("Setenv builtin");
 	(void)args;
-	return (1);
+	return (0);
 }
 
 int			builtin_unsetenv(char **args)
 {
 	ft_putendl("Unsetenv builtin");
 	(void)args;
-	return (1);
+	return (0);
 }

@@ -28,20 +28,20 @@ void			shell_loop(char **env)
 	char			*line;
 	char			**args;
 	int				args_c;
-	int				status;
+	int				stop;
 
-	status = 1;
-	while (status)
+	stop = 0;
+	while (!stop)
 	{
 		ft_putstr("$> ");
 		//1. get args
-		if (get_next_line(1, &line))
-		{	//2. split args
-			args = ft_strsplit(line, ' ');
-			free(line);
-			args_c = get_ac(args);
-			//3. execute args
-			status = execute(args, env);
-		}
+		get_next_line(1, &line);
+		//2. split args
+		args = ft_strsplit(line, ' ');
+		free(line);
+		args_c = get_ac(args);
+		//3. execute args
+		stop = execute(args, env);
+		free(args);
 	}
 }
