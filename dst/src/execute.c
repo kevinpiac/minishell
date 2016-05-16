@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int				execute(t_dm *dm, char **env) // remove env here.
+int				execute(t_dm *dm) // remove env here.
 {
 	t_bm			*bm;
 	int				i;
@@ -25,11 +25,11 @@ int				execute(t_dm *dm, char **env) // remove env here.
 		return (0);
 	if ((i = bm_search(bm, bin)) != -1)
 		return (bm_execute(bm, i, dm));
-	execute_binary(dm->args, env);//replace by dm here
+	execute_binary(dm);//replace by dm here
 	return (0);
 }
 
-static char		*get_first_accessible_path(char **env, char *bin_name)
+static char		*get_first_accessible_path(t_vector *env, char *bin_name)
 {
 	int				i;
 	char			*b;
@@ -52,13 +52,13 @@ static char		*get_first_accessible_path(char **env, char *bin_name)
 	return (NULL);
 }
 
-void			execute_binary(char **args, char **env)
+void			execute_binary(t_dm *dm)
 {
 	pid_t			pid;
 	int				status;
 	char			*bin;
 
-	bin = get_first_accessible_path(env, args[0]);
+	bin = get_first_accessible_path(dm->env, dm->args[0]);
 	if (!bin)
 	{
 		ft_putendl_fd("Minishell: command not found or not accessible", 2);
@@ -68,7 +68,7 @@ void			execute_binary(char **args, char **env)
 	if (pid > 1)
 		wait(&status);
 	else if (pid == 0)
-		execve(bin, args, env);
+		execve(bin, dm->args, NULL);//should replace null by char **env
 	else
 		ft_putendl_fd("ERROR", 2);
 }

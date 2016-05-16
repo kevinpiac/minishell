@@ -12,14 +12,17 @@
 
 #include "minishell.h"
 
-int			builtin_cd(char **args, char **env)
+int			builtin_cd(t_dm *dm)
 {
+	char		**args;
+	t_vector	*env;
+
+	args = dm->args;
+	env = dm->env;
 	if (args[1] == NULL || ft_strequ(args[1], "~"))
 	{
 		if (chdir(env_findvalue(env, "HOME")) != 0)
 			ft_putendl_fd("cd: an error occured", 2);
-		else
-			env[0] = ft_strdup("COUCOU");
 	}
 	else if (chdir(args[1]) != 0)
 	{
@@ -50,16 +53,16 @@ int			builtin_env(t_dm *dm)
 	return (0);
 }
 
-int			builtin_setenv(char **args)
+int			builtin_setenv(t_dm *dm)
 {
+	(void)dm;
 	ft_putendl("Setenv builtin");
-	(void)args;
 	return (0);
 }
 
-int			builtin_unsetenv(char **args)
+int			builtin_unsetenv(t_dm *dm)
 {
 	ft_putendl("Unsetenv builtin");
-	(void)args;
+	(void)dm;
 	return (0);
 }

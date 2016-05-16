@@ -30,7 +30,7 @@ void			shell_loop(int ac, char **av, char **env)
 		vector_add(history, ft_strdup(line));
 		dm = dm_new(env, line);
 		free(line);
-		stop = execute(dm, env);
+		stop = execute(dm);
 	}
 	vector_del(history, free);
 }

@@ -12,20 +12,19 @@
 
 #include "minishell.h"
 
-char			*env_findvalue(char **env, char *name)
+char			*env_findvalue(t_vector *env, char *name)
 {
 	int				i;
-	char			**split;
 	char			*value;
+	t_env_item		*item;
 
 	i = 0;
 	value = NULL;
-	while (env[i])
+	while (i < env->total)
 	{
-		split = ft_strsplit(env[i], '=');
-		if (ft_strequ(split[0], name))
-			value = ft_strdup(split[1]);
-		free(split);
+		item = env->items[i];
+		if (ft_strequ(item->name, name))
+			return (item->value);
 		i++;
 	}
 	return (value);
@@ -46,7 +45,7 @@ t_vector		*env_tovector(char **env)
 	return (v_env);
 }
 
-t_vector		*env_arm_init(char **env, int ac, char **av)
+t_vector		*env_arm_init(t_vector *env, int ac, char **av)
 {
 	t_vector		*arm;
 	t_arm_argument	*param;

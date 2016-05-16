@@ -79,25 +79,25 @@ void					env_item_init(t_env_item *this, char *env_line);
 **	ENV.C
 */
 
-char					*env_findvalue(char **env, char *name);
-t_vector				*env_arm_init(char **env, int ac, char **av);
+char					*env_findvalue(t_vector *env, char *name);
+t_vector				*env_arm_init(t_vector *env, int ac, char **av);
 t_vector				*env_tovector(char **env);
 
 /*
 **	BUILTIN.C
 */
 
-int						builtin_cd(char **args, char **env);
+int						builtin_cd(t_dm *dm);
 int						builtin_exit(void);
 int						builtin_env(t_dm *dm);
-int						builtin_setenv(char **args);
-int						builtin_unsetenv(char **args);
+int						builtin_setenv(t_dm *);
+int						builtin_unsetenv(t_dm *);
 
 /*
 ** EXECUTE.C
 */
 
-int						execute(t_dm *dm, char **env);
-void					execute_binary(char **args, char **env);
+int						execute(t_dm *dm);
+void					execute_binary(t_dm *dm);
 
 #endif

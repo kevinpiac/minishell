@@ -22,16 +22,18 @@ t_dm				*dm_new(char **env, char *line)
 	return (dm);
 }
 
-void				dm_init(t_dm *this, char **env, char *line)
+void				dm_init(t_dm *this, char **env_old, char *line)
 {
 	t_vector	*arm;
+	t_vector	*env;
 	int			ac;
 	char 		**av;
 
 	av = ft_strsplit(line, ' ');
 	ac = ft_splitcount(av);
+	env = env_tovector(env_old);
 	arm = env_arm_init(env, ac, av);
 	this->arm = arm;
-	this->env = env_tovector(env);
+	this->env = env;
 	this->args = av;
 }
