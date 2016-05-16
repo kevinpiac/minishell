@@ -23,12 +23,16 @@ int			builtin_cd(t_dm *dm)
 	{
 		if (chdir(env_findvalue(env, "HOME")) != 0)
 			ft_putendl_fd("cd: an error occured", 2);
+		else
+			env_set(env, "OLDPWD", "COUCOU");
 	}
 	else if (chdir(args[1]) != 0)
 	{
 		ft_putstr_fd("cd: no such file or directory: ", 2);
 		ft_putendl_fd(args[1], 2);
 	}
+	else
+		env_set(env, "OLDPWD", "COUCOU");
 	return (0);
 }
 

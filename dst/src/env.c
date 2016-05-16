@@ -15,19 +15,32 @@
 char			*env_findvalue(t_vector *env, char *name)
 {
 	int				i;
-	char			*value;
 	t_env_item		*item;
 
 	i = 0;
-	value = NULL;
-	while (i < env->total)
+	item = env_item_find(env, name);
+	if (item)
+		return (item->value);
+	return (NULL);
+}
+
+void			env_set(t_vector *env, char *name, char *value)
+{
+	t_env_item		*item;
+
+	item = env_item_find(env, name);
+	if (item)
 	{
-		item = env->items[i];
-		if (ft_strequ(item->name, name))
-			return (item->value);
-		i++;
+		ft_putendl("HERE");
+		item->value = value;
+//		free(item->full);
+		item->full = ft_strdup("COUCOU");
+/*		item->full = ft_strnew(ft_strlen(item->value + ft_strlen(name) + 1));
+		item->full = ft_strcat(item->full, name);
+		item->full = ft_strcat(item->full, "=");
+		item->full = ft_strcat(item->full, value);
+*/
 	}
-	return (value);
 }
 
 t_vector		*env_tovector(char **env)
