@@ -26,7 +26,7 @@
 typedef struct			s_dm
 {
 	t_vector			*arm;
-	char				**env;
+	t_vector			*env;
 	char				**args;
 }						t_dm;
 
@@ -46,8 +46,7 @@ t_bm					*bm_new(void);
 void					bm_init(t_bm *this);
 void					bm_del(t_bm *this);
 int						bm_search(t_bm *this, char *name);
-int						bm_execute(t_bm *this, int func_index, char **args
-							, char **env);
+int						bm_execute(t_bm *this, int func_index, t_dm *dm);
 
 /*
 **	ARGS.C
@@ -63,11 +62,26 @@ void					shell_loop(int ac, char **av, char **env);
 void					shell_launch(char **av);
 
 /*
+**	ENV_ITEM.C
+*/
+
+typedef	struct 			s_env_item
+{
+	char				*name;
+	char				*value;
+	char				*full;
+}						t_env_item;
+
+t_env_item				*env_item_new(char *env_line);
+void					env_item_init(t_env_item *this, char *env_line);
+
+/*
 **	ENV.C
 */
 
 char					*env_findvalue(char **env, char *name);
 t_vector				*env_arm_init(char **env, int ac, char **av);
+t_vector				*env_tovector(char **env);
 
 /*
 **	BUILTIN.C
@@ -75,7 +89,7 @@ t_vector				*env_arm_init(char **env, int ac, char **av);
 
 int						builtin_cd(char **args, char **env);
 int						builtin_exit(void);
-int						builtin_env(char **args, char **env);
+int						builtin_env(t_dm *dm);
 int						builtin_setenv(char **args);
 int						builtin_unsetenv(char **args);
 

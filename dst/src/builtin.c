@@ -18,6 +18,8 @@ int			builtin_cd(char **args, char **env)
 	{
 		if (chdir(env_findvalue(env, "HOME")) != 0)
 			ft_putendl_fd("cd: an error occured", 2);
+		else
+			env[0] = ft_strdup("COUCOU");
 	}
 	else if (chdir(args[1]) != 0)
 	{
@@ -33,14 +35,18 @@ int			builtin_exit(void)
 	return (1);
 }
 
-int			builtin_env(char **args, char **env)
+int			builtin_env(t_dm *dm)
 {
 	int			i;
+	t_env_item	*item;
 
 	i = 0;
-	while (env[i])
-		ft_putendl(env[i++]);
-	(void)args;
+	while (i < dm->env->total)
+	{
+		item = dm->env->items[i];
+		ft_putendl(item->full);
+		i++;
+	}
 	return (0);
 }
 

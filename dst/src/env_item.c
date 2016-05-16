@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_manager.c                                  :+:      :+:    :+:   */
+/*   env_item.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kpiacent <kpiacent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,51 +12,26 @@
 
 #include "minishell.h"
 
-t_bm				*bm_new(void)
+t_env_item			*env_item_new(char *env_line)
 {
-	t_bm		*bm;
+	t_env_item		*env_item;
 
-	if (!(bm = (t_bm *)ft_memalloc(sizeof(t_bm) * 1)))
+	if (!(env_item = (t_env_item *)ft_memalloc(sizeof(t_env_item))))
 		return (NULL);
-	bm_init(bm);
-	return (bm);
+	env_item_init(env_item, env_line);
+	return (env_item);
 }
 
-void				bm_init(t_bm *this)
+void				env_item_init(t_env_item *this, char *env_line)
 {
-	this->builtins = ft_strsplit(BUILTINS_LIST, ',');
-}
+	char			**split;
+	int				len;
+	int				index;
 
-void				bm_del(t_bm *this)
-{
-	if (this)
-		free(this);
-	this = NULL;
-}
-
-int					bm_search(t_bm *this, char *name)
-{
-	int			i;
-
-	i = 0;
-	while (this->builtins[i])
-	{
-		if (ft_strequ(this->builtins[i], name))
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-int					bm_execute(t_bm *this, int i, t_dm *dm)
-{
-	int			(*builtins_ptr[5])();
-
-	builtins_ptr[0] = &builtin_cd;
-	builtins_ptr[1] = &builtin_exit;
-	builtins_ptr[2] = &builtin_env;
-	builtins_ptr[3] = &builtin_setenv;
-	builtins_ptr[4] = &builtin_unsetenv;
-	free(this);
-	return (builtins_ptr[i](dm));
+	len = ft_strlen(env_line);
+	index = ft_strindex(env_line, "=");
+	split = ft_strsplit(env_line, '=');
+	this->full = ft_strdup(env_line);
+	this->name = ft_strsub(env_line, 0, index - 1);
+	this->value = ft_strsub(env_line, index + 1, len - 1);
 }

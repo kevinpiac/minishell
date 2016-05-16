@@ -32,6 +32,6 @@ void				dm_init(t_dm *this, char **env, char *line)
 	ac = ft_splitcount(av);
 	arm = env_arm_init(env, ac, av);
 	this->arm = arm;
-	this->env = env;
+	this->env = env_tovector(env);
 	this->args = av;
 }

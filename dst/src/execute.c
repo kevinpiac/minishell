@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int				execute(t_dm *dm, char **env)
+int				execute(t_dm *dm, char **env) // remove env here.
 {
 	t_bm			*bm;
 	int				i;
@@ -24,8 +24,8 @@ int				execute(t_dm *dm, char **env)
 	if (bin == NULL)
 		return (0);
 	if ((i = bm_search(bm, bin)) != -1)
-		return (bm_execute(bm, i, dm->args, env));
-	execute_binary(dm->args, env);
+		return (bm_execute(bm, i, dm));
+	execute_binary(dm->args, env);//replace by dm here
 	return (0);
 }
 

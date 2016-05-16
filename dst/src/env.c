@@ -31,6 +31,21 @@ char			*env_findvalue(char **env, char *name)
 	return (value);
 }
 
+t_vector		*env_tovector(char **env)
+{
+	t_vector		*v_env;
+	int				i;
+
+	i = 0;
+	v_env = vector_new(30);
+	while (env[i])
+	{
+		vector_add(v_env, env_item_new(env[i]));
+		i++;
+	}
+	return (v_env);
+}
+
 t_vector		*env_arm_init(char **env, int ac, char **av)
 {
 	t_vector		*arm;
