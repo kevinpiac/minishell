@@ -55,6 +55,7 @@ void			execute_binary(char **args, char **env)
 	pid_t			pid;
 	int				status;
 	char			*bin;
+
 	bin = get_first_accessible_path(env, args[0]);
 	if (!bin)
 	{
