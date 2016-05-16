@@ -14,9 +14,9 @@
 
 char			*env_findvalue(char **env, char *name)
 {
-	int			i;
-	char		**split;
-	char		*value;
+	int				i;
+	char			**split;
+	char			*value;
 
 	i = 0;
 	value = NULL;
@@ -29,4 +29,25 @@ char			*env_findvalue(char **env, char *name)
 		i++;
 	}
 	return (value);
+}
+
+t_vector		*env_arm_init(char **env, int ac, char **av)
+{
+	t_vector		*arm;
+	t_arm_argument	*param;
+	char			*new_val;
+
+	int			i;
+
+	i = 0;
+	arm = arm_init(ac, av);
+	while (i < arm->total)
+	{
+		param = arm->items[i];
+		new_val = ft_strreplace(param->name, "~", env_findvalue(env, "HOME"));
+		if (new_val)
+			param->name = new_val;
+		i++;
+	}
+	return (arm);
 }

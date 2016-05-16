@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell.c                                            :+:      :+:    :+:   */
+/*   data_manager.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kpiacent <kpiacent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,25 +12,26 @@
 
 #include "minishell.h"
 
-void			shell_loop(int ac, char **av, char **env)
+t_dm				*dm_new(char **env, char *line)
 {
-	int				stop;
-	t_dm			*dm;
-	t_vector		*history;
-	char			*line;
+	t_dm		*dm;
 
-	history = vector_new(100);
-	stop = 0;
-	(void)ac;
-	(void)av;
-	while (!stop)
-	{
-		ft_putstr("$> ");
-		get_next_line(1, &line);
-		vector_add(history, ft_strdup(line));
-		dm = dm_new(env, line);
-		free(line);
-		stop = execute(dm, env);
-	}
-	vector_del(history, free);
+	if (!(dm = (t_dm *)ft_memalloc(sizeof(t_dm) * 1)))
+		return (NULL);
+	dm_init(dm, env, line);
+	return (dm);
+}
+
+void				dm_init(t_dm *this, char **env, char *line)
+{
+	t_vector	*arm;
+	int			ac;
+	char 		**av;
+
+	av = ft_strsplit(line, ' ');
+	ac = ft_splitcount(av);
+	arm = env_arm_init(env, ac, av);
+	this->arm = arm;
+	this->env = env;
+	this->args = av;
 }

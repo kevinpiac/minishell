@@ -16,7 +16,7 @@ t_bm				*bm_new(void)
 {
 	t_bm		*bm;
 
-	if (!(bm = ft_memalloc(sizeof(bm) * 1)))
+	if (!(bm = (t_bm *)ft_memalloc(sizeof(t_bm) * 1)))
 		return (NULL);
 	bm_init(bm);
 	return (bm);

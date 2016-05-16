@@ -1,36 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell.c                                            :+:      :+:    :+:   */
+/*   args.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kpiacent <kpiacent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/04/11 15:13:31 by kpiacent          #+#    #+#             */
-/*   Updated: 2016/05/13 16:33:15 by kpiacent         ###   ########.fr       */
+/*   Created: 2016/02/03 10:37:12 by kpiacent          #+#    #+#             */
+/*   Updated: 2016/04/28 14:37:01 by kpiacent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void			shell_loop(int ac, char **av, char **env)
+char			**args_make(t_vector *arm, char **env)
 {
-	int				stop;
-	t_dm			*dm;
-	t_vector		*history;
-	char			*line;
-
-	history = vector_new(100);
-	stop = 0;
-	(void)ac;
-	(void)av;
-	while (!stop)
-	{
-		ft_putstr("$> ");
-		get_next_line(1, &line);
-		vector_add(history, ft_strdup(line));
-		dm = dm_new(env, line);
-		free(line);
-		stop = execute(dm, env);
-	}
-	vector_del(history, free);
+	(void)arm;
+	(void)env;
+	return (ft_strsplit("ls -la", ' '));
 }
