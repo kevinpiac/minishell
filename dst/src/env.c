@@ -36,8 +36,8 @@ t_vector		*env_arm_init(char **env, int ac, char **av)
 	t_vector		*arm;
 	t_arm_argument	*param;
 	char			*new_val;
-
-	int			i;
+	char			*new_arg;
+	int				i;
 
 	i = 0;
 	arm = arm_init(ac, av);
@@ -46,7 +46,21 @@ t_vector		*env_arm_init(char **env, int ac, char **av)
 		param = arm->items[i];
 		new_val = ft_strreplace(param->name, "~", env_findvalue(env, "HOME"));
 		if (new_val)
+		{
 			param->name = new_val;
+			break;
+		}
+		i++;
+	}
+	i = 0;
+	while (av[i])
+	{
+		new_arg = ft_strreplace(av[i], "~", env_findvalue(env, "HOME"));
+		if (new_arg)
+		{
+			av[i] = new_arg;
+			break;
+		}
 		i++;
 	}
 	return (arm);
