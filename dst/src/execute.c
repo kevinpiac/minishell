@@ -27,13 +27,40 @@ int				execute(char **args, char **env)
 	return (0);
 }
 
+static char		*get_first_accessible_path(char **env, char *bin_name)
+{
+	int				i;
+	char			*b;
+	char			*bin;
+	char			**paths;
+
+	if (access(bin_name, X_OK) == 0)
+		return (bin_name);
+	paths = ft_strsplit(env_findvalue(env, "PATH"), ':');
+	i = 0;
+	while (paths[i])
+	{
+		b = ft_strjoin(paths[i], "/");
+		bin = ft_strjoin(b, bin_name);
+		free(b);
+		if (access(bin, X_OK) == 0)
+			return (bin);
+		i++;
+	}
+	return (NULL);
+}
+
 void			execute_binary(char **args, char **env)
 {
 	pid_t			pid;
 	int				status;
 	char			*bin;
-
-	bin = ft_strjoin("/bin/", args[0]);
+	bin = get_first_accessible_path(env, args[0]);
+	if (!bin)
+	{
+		ft_putendl_fd("Minishell: command not found or not accessible", 2);
+		return ;
+	}
 	pid = fork();
 	if (pid > 1)
 		wait(&status);

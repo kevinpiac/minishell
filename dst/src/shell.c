@@ -29,19 +29,20 @@ void			shell_loop(char **env)
 	char			**args;
 	int				args_c;
 	int				stop;
+	t_vector		*history;
 
+	history = vector_new(100);
 	stop = 0;
 	while (!stop)
 	{
 		ft_putstr("$> ");
-		//1. get args
 		get_next_line(1, &line);
-		//2. split args
 		args = ft_strsplit(line, ' ');
+		vector_add(history, ft_strdup(line));
 		free(line);
 		args_c = get_ac(args);
-		//3. execute args
 		stop = execute(args, env);
 		free(args);
 	}
+	vector_del(history, free);
 }
