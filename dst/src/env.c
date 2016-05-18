@@ -29,7 +29,11 @@ void			env_set(t_vector *env, char *name, char *value)
 	t_env_item		*item;
 	char			*full;
 
-	//checkerror here (double = for example);
+	if (ft_strchr(name, '=') || ft_strchr(value, '='))
+	{
+		ft_putendl_fd("Variable or value can not contain =", 2);
+		return ;
+	}
 	full = ft_strnew(ft_strlen(value) + ft_strlen(name) + 1);
 	full = ft_strcat(full, name);
 	full = ft_strcat(full, "=");
@@ -41,9 +45,7 @@ void			env_set(t_vector *env, char *name, char *value)
 		item->full = full;
 	}
 	else
-	{
 		vector_add(env, env_item_new(full));
-	}
 }
 
 t_vector		*env_tovector(char **env)
