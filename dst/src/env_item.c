@@ -51,3 +51,19 @@ t_env_item			*env_item_find(t_vector *env, char *name)
 	}
 	return (NULL);
 }
+
+int					env_item_index(t_vector *env, char *name)
+{
+	int				i;
+	t_env_item		*item;
+
+	i = 0;
+	while (i < env->total)
+	{
+		item = env->items[i];
+		if (ft_strequ(item->name, name))
+			return (i);
+		i++;
+	}
+	return (-1);
+}

@@ -88,7 +88,22 @@ int			builtin_setenv(t_dm *dm)
 
 int			builtin_unsetenv(t_dm *dm)
 {
-	ft_putendl("Unsetenv builtin");
-	(void)dm;
+	int			ac;
+	int			i;
+	int			item_index;
+
+	ac = ft_splitcount(dm->args);
+	i = 1;
+	while (i < ac)
+	{
+		if ((item_index = env_item_index(dm->env, dm->args[i])) != -1)
+		{
+			vector_delone(dm->env, item_index);
+			ft_putendl("Variable has been removed");
+		}
+		else
+			ft_putendl_fd("unsetenv error message", 2);
+		i++;
+	}
 	return (0);
 }

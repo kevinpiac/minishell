@@ -76,6 +76,7 @@ typedef	struct 			s_env_item
 t_env_item				*env_item_new(char *env_line);
 t_env_item				*env_item_find(t_vector *env, char *name);
 void					env_item_init(t_env_item *this, char *env_line);
+int						env_item_index(t_vector *env, char *name);
 
 /*
 **	ENV.C
