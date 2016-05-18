@@ -31,6 +31,7 @@ typedef struct			s_dm
 }						t_dm;
 
 t_dm					*dm_new(char **env);
+t_dm					*dm_dup(t_dm *this);
 void					dm_init(t_dm *this, char **env);
 void					dm_update(t_dm *this, char *line);
 
