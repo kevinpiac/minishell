@@ -24,6 +24,20 @@ char			*env_findvalue(t_vector *env, char *name)
 	return (NULL);
 }
 
+void			env_show(t_vector *env)
+{
+	int			i;
+	t_env_item	*item;
+
+	i = 0;
+	while (i < env->total)
+	{
+		item = env->items[i];
+		ft_putendl(item->full);
+		i++;
+	}
+}
+
 void			env_set(t_vector *env, char *name, char *value)
 {
 	t_env_item		*item;

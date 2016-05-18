@@ -47,15 +47,10 @@ int			builtin_exit(void)
 int			builtin_env(t_dm *dm)
 {
 	int			i;
-	t_env_item	*item;
 
 	i = 0;
-	while (i < dm->env->total)
-	{
-		item = dm->env->items[i];
-		ft_putendl(item->full);
-		i++;
-	}
+	if (!dm->args[1] || ft_strequ(dm->args[1], "env"))
+		env_show(dm->env);
 	return (0);
 }
 

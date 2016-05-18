@@ -86,6 +86,7 @@ char					*env_findvalue(t_vector *env, char *name);
 t_vector				*env_arm_init(t_vector *env, int ac, char **av);
 t_vector				*env_tovector(char **env);
 void					env_set(t_vector *env, char *name, char *value);
+void					env_show(t_vector *env);
 
 /*
 **	BUILTIN.C

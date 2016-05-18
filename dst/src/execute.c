@@ -25,7 +25,7 @@ int				execute(t_dm *dm) // remove env here.
 		return (0);
 	if ((i = bm_search(bm, bin)) != -1)
 		return (bm_execute(bm, i, dm));
-	execute_binary(dm);//replace by dm here
+	execute_binary(dm);
 	return (0);
 }
 
@@ -68,7 +68,7 @@ void			execute_binary(t_dm *dm)
 	if (pid > 1)
 		wait(&status);
 	else if (pid == 0)
-		execve(bin, dm->args, NULL);//should replace null by char **env
+		execve(bin, dm->args, vector_totab(dm->env));
 	else
 		ft_putendl_fd("ERROR", 2);
 }
