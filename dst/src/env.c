@@ -31,15 +31,11 @@ void			env_set(t_vector *env, char *name, char *value)
 	item = env_item_find(env, name);
 	if (item)
 	{
-		ft_putendl("HERE");
 		item->value = value;
-//		free(item->full);
-		item->full = ft_strdup("COUCOU");
-/*		item->full = ft_strnew(ft_strlen(item->value + ft_strlen(name) + 1));
+		item->full = ft_strnew(ft_strlen(value) + ft_strlen(name) + 1);
 		item->full = ft_strcat(item->full, name);
 		item->full = ft_strcat(item->full, "=");
 		item->full = ft_strcat(item->full, value);
-*/
 	}
 }
 

@@ -16,21 +16,17 @@ void			shell_loop(int ac, char **av, char **env)
 {
 	int				stop;
 	t_dm			*dm;
-	t_vector		*history;
 	char			*line;
 
-	history = vector_new(100);
 	stop = 0;
 	(void)ac;
 	(void)av;
+	dm = dm_new(env);
 	while (!stop)
 	{
 		ft_putstr("$> ");
 		get_next_line(1, &line);
-		vector_add(history, ft_strdup(line));
-		dm = dm_new(env, line);
-		free(line);
+		dm_update(dm, line);
 		stop = execute(dm);
 	}
-	vector_del(history, free);
 }

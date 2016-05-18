@@ -12,28 +12,33 @@
 
 #include "minishell.h"
 
-t_dm				*dm_new(char **env, char *line)
+t_dm				*dm_new(char **env)
 {
 	t_dm		*dm;
 
 	if (!(dm = (t_dm *)ft_memalloc(sizeof(t_dm) * 1)))
 		return (NULL);
-	dm_init(dm, env, line);
+	dm_init(dm, env);
 	return (dm);
 }
 
-void				dm_init(t_dm *this, char **env_old, char *line)
+void				dm_init(t_dm *this, char **env_old)
 {
-	t_vector	*arm;
 	t_vector	*env;
+
+	env = env_tovector(env_old);
+	this->env = env;
+	this->arm = NULL;
+	this->args = NULL;
+}
+
+void				dm_update(t_dm *this, char *line)
+{
 	int			ac;
-	char 		**av;
+	char		**av;
 
 	av = ft_strsplit(line, ' ');
 	ac = ft_splitcount(av);
-	env = env_tovector(env_old);
-	arm = env_arm_init(env, ac, av);
-	this->arm = arm;
-	this->env = env;
+	this->arm = env_arm_init(this->env, ac, av);
 	this->args = av;
 }

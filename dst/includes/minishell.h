@@ -30,8 +30,9 @@ typedef struct			s_dm
 	char				**args;
 }						t_dm;
 
-t_dm					*dm_new(char **env, char *line);
-void					dm_init(t_dm *this, char **env, char *line);
+t_dm					*dm_new(char **env);
+void					dm_init(t_dm *this, char **env);
+void					dm_update(t_dm *this, char *line);
 
 /*
 **	BUILTIN_MANAGER.C

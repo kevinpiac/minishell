@@ -15,24 +15,26 @@
 int			builtin_cd(t_dm *dm)
 {
 	char		**args;
+	char		*home;
+	char		*pwd;
 	t_vector	*env;
 
 	args = dm->args;
 	env = dm->env;
-	if (args[1] == NULL || ft_strequ(args[1], "~"))
+	home = env_findvalue(env, "HOME");
+	pwd = env_findvalue(env, "PWD");
+	if (args[1] == NULL && chdir(home) == 0)
 	{
-		if (chdir(env_findvalue(env, "HOME")) != 0)
-			ft_putendl_fd("cd: an error occured", 2);
-		else
-			env_set(env, "OLDPWD", "COUCOU");
+			env_set(env, "OLDPWD", pwd);
+			env_set(env, "PWD", home);
 	}
-	else if (chdir(args[1]) != 0)
+	else if (args[1] != NULL && chdir(args[1]) == 0)
 	{
-		ft_putstr_fd("cd: no such file or directory: ", 2);
-		ft_putendl_fd(args[1], 2);
+		env_set(env, "OLDPWD", pwd);
+		env_set(env, "PWD", args[1]); // modify here
 	}
 	else
-		env_set(env, "OLDPWD", "COUCOU");
+		ft_putendl_fd("cd: An error occured, no such file of directory.", 2);
 	return (0);
 }
 
