@@ -61,8 +61,28 @@ int			builtin_env(t_dm *dm)
 
 int			builtin_setenv(t_dm *dm)
 {
-	(void)dm;
-	ft_putendl("Setenv builtin");
+	int			ac;
+	int			i;
+	char		**split;
+
+	ac = ft_splitcount(dm->args);
+	i = 1;
+	while (i < ac)
+	{
+		if ((split = ft_strsplit(dm->args[i], '=')) && ft_splitcount(split) == 2)
+			env_set(dm->env, split[0], split[1]);
+		else if (i + 1 < ac)
+		{
+			env_set(dm->env, dm->args[i], dm->args[i + 1]);
+			i++;
+		}
+		else
+		{
+			ft_putendl_fd("Your should check the setenv usage on google ;D", 2);
+			return (0);
+		}
+		i++;
+	}
 	return (0);
 }
 

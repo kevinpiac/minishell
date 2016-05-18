@@ -27,15 +27,22 @@ char			*env_findvalue(t_vector *env, char *name)
 void			env_set(t_vector *env, char *name, char *value)
 {
 	t_env_item		*item;
+	char			*full;
 
+	//checkerror here (double = for example);
+	full = ft_strnew(ft_strlen(value) + ft_strlen(name) + 1);
+	full = ft_strcat(full, name);
+	full = ft_strcat(full, "=");
+	full = ft_strcat(full, value);
 	item = env_item_find(env, name);
 	if (item)
 	{
 		item->value = value;
-		item->full = ft_strnew(ft_strlen(value) + ft_strlen(name) + 1);
-		item->full = ft_strcat(item->full, name);
-		item->full = ft_strcat(item->full, "=");
-		item->full = ft_strcat(item->full, value);
+		item->full = full;
+	}
+	else
+	{
+		vector_add(env, env_item_new(full));
 	}
 }
 
