@@ -15,23 +15,23 @@
 int			builtin_cd(t_dm *dm)
 {
 	char		**args;
-	char		*home;
 	char		*pwd;
 	t_vector	*env;
+	char		*new_pwd;
 
 	args = dm->args;
 	env = dm->env;
-	home = env_findvalue(env, "HOME");
 	pwd = env_findvalue(env, "PWD");
-	if (args[1] == NULL && chdir(home) == 0)
+	new_pwd = NULL;
+	if (args[1] == NULL && chdir(env_findvalue(env, "HOME")) == 0)
 	{
 			env_set(env, "OLDPWD", pwd);
-			env_set(env, "PWD", home);
+			env_set(env, "PWD", getcwd(new_pwd, sizeof(char *)));
 	}
 	else if (args[1] != NULL && chdir(args[1]) == 0)
 	{
 		env_set(env, "OLDPWD", pwd);
-		env_set(env, "PWD", args[1]); // modify here
+		env_set(env, "PWD", getcwd(new_pwd, sizeof(char *)));
 	}
 	else
 		ft_putendl_fd("cd: An error occured, no such file of directory.", 2);
