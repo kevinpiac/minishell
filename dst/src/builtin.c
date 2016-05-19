@@ -62,9 +62,10 @@ int			builtin_env(t_dm *dm)
 			env_clear(dmcp->env);
 			once++;
 		}
-		else if ((split = ft_strsplit(dm->args[i], '=')) && ft_splitcount(split) == 2) // create a function "is_toset_env"
+		if (ft_strchr(dm->args[i], '='))
 		{
-			env_set(dmcp->env, split[0], split[1])// here.
+			split = ft_strsplit(dm->args[i], '=');
+			env_set(dmcp->env, split[0], split[1]);
 		}
 		else if (get_first_accessible_path(dmcp->env, dm->args[i]))
 			ft_putendl("DETECTED A BINARY FILE"); //return here with new args in dm_cp

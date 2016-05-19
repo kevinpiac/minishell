@@ -97,7 +97,7 @@ char			**env_totab(t_vector *this)
 
 void			env_clear(t_vector *env)
 {
-	vector_del(env, &env_item_del);
+	vector_foreach(env, &env_item_del);
 	env->total = 0;
 }
 

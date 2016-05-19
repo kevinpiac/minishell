@@ -31,9 +31,12 @@ void				env_item_init(t_env_item *this, char *env_line)
 	len = ft_strlen(env_line);
 	index = ft_strindex(env_line, "=");
 	split = ft_strsplit(env_line, '=');
-	this->full = ft_strdup(env_line);
-	this->name = split[0];
-	this->value = split[1];
+	if (split)
+	{
+		this->full = ft_strdup(env_line);
+		this->name = split[0];
+		this->value = split[1];
+	}
 }
 
 t_env_item			*env_item_find(t_vector *env, char *name)
