@@ -58,15 +58,19 @@ t_dm				*dm_dup(t_dm *this)
 	return (cp);
 }
 
-void				dm_dup_update_args(t_dm *this, int index)
+void				dm_dup_update_args(t_dm *this, char **args, int index)
 {
-	char		**args;
+	char		**new_args;
+	int			i;
 
-	args = &(this->args[index]);
-	int i = 0;
-	while (args[i])
+	i = 0;
+	new_args = (char **)ft_memalloc(sizeof(char *) * 1000);
+	while (args[index])
 	{
-		ft_putendl(args[i]);
+		new_args[i] = ft_strdup(args[index]);
 		i++;
+		index++;
 	}
+	this->args = new_args;
+	this->ac = ft_splitcount(this->args);
 }

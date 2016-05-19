@@ -35,7 +35,7 @@ t_dm					*dm_new(char **env);
 t_dm					*dm_dup(t_dm *this);
 void					dm_init(t_dm *this, char **env);
 void					dm_update(t_dm *this, char *line);
-void					dm_dup_update_args(t_dm *this, int index);
+void					dm_dup_update_args(t_dm *this, char **args, int index);
 
 /*
 **	BUILTIN_MANAGER.C

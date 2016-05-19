@@ -68,7 +68,10 @@ int			builtin_env(t_dm *dm)
 			env_set(dmcp->env, split[0], split[1]);
 		}
 		else if (get_first_accessible_path(dmcp->env, dm->args[i]))
-			ft_putendl("DETECTED A BINARY FILE"); //return here with new args in dm_cp
+		{
+			dm_dup_update_args(dmcp, dm->args, i);
+			return (execute(dmcp));
+		}
 		i++;
 	}
 	bin = NULL;
