@@ -49,13 +49,20 @@ int			builtin_env(t_dm *dm)
 	int			i;
 	t_dm		*dmcp;
 	char		*bin;
+	int			once;
 
 	dmcp = dm_dup(dm);
 	i = 1;
+	once = 0;
 	while (i < dm->ac)
 	{
-		if (ft_strequ(dm->args[i], "-i"))
+		if (ft_strequ(dm->args[i], "-i") && !once)
+		{
 			env_clear(dmcp->env);
+			once++;
+		}
+		else if (get_first_accessible_path(dmcp->env, dm->args[i]))
+			ft_putendl("DETECTED A BINARY FILE");
 		i++;
 	}
 	bin = NULL;

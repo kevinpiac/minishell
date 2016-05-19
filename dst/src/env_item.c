@@ -73,6 +73,7 @@ void				env_item_del(void *item)
 	t_env_item		*this;
 
 	this = (t_env_item *)item;
-	free(this);
+	if (this)
+		free(this);
 	this = NULL;
 }
