@@ -56,15 +56,10 @@ int			builtin_env(t_dm *dm)
 	{
 		if (ft_strequ(dm->args[i], "-i"))
 			env_clear(dmcp->env);
-		if ((bin = get_first_accessible_path(dmcp->env, dm->args[i])))
-		{
-			dm_dup_update_args(dm, i);
-			return (-1);
-//			execute(dmcp);
-		}
 		i++;
 	}
-	env_show(dm->env);
+	bin = NULL;
+	env_show(dmcp->env);
 	return (0);
 }
 

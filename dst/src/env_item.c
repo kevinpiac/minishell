@@ -67,3 +67,12 @@ int					env_item_index(t_vector *env, char *name)
 	}
 	return (-1);
 }
+
+void				env_item_del(void *item)
+{
+	t_env_item		*this;
+
+	this = (t_env_item *)item;
+	free(this);
+	this = NULL;
+}

@@ -97,19 +97,8 @@ char			**env_totab(t_vector *this)
 
 void			env_clear(t_vector *env)
 {
-	t_env_item		*item;
-	int				i;
-
-	i = 0;
-	// should remove a node here instead of remove values.
-	while (i < env->total)
-	{
-		item = env->items[i];
-		if (item)
-			free(item);
-		item = NULL;
-		i++;
-	}
+	vector_del(env, &env_item_del);
+	env->total = 0;
 }
 
 // to remove
