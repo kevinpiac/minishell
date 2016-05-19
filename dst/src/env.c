@@ -77,6 +77,42 @@ t_vector		*env_tovector(char **env)
 	return (v_env);
 }
 
+char			**env_totab(t_vector *this)
+{
+	t_env_item		*item;
+	int				i;
+	char			**array;
+
+	array = (char **)ft_memalloc(sizeof(char *) * this->total + 1);
+	i = 0;
+	while (i < this->total)
+	{
+		item = this->items[i];
+		array[i] = ft_strdup(item->full);
+		i++;
+	}
+	array[i] = NULL;
+	return (array);
+}
+
+void			env_clear(t_vector *env)
+{
+	t_env_item		*item;
+	int				i;
+
+	i = 0;
+	// should remove a node here instead of remove values.
+	while (i < env->total)
+	{
+		item = env->items[i];
+		if (item)
+			free(item);
+		item = NULL;
+		i++;
+	}
+}
+
+// to remove
 t_vector		*env_arm_init(t_vector *env, int ac, char **av)
 {
 	t_vector		*arm;

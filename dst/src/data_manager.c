@@ -39,8 +39,9 @@ void				dm_update(t_dm *this, char *line)
 
 	av = ft_strsplit(line, ' ');
 	ac = ft_splitcount(av);
-	this->arm = env_arm_init(this->env, ac, av);
+//	this->arm = env_arm_init(this->env, ac, av);
 	this->args = av;
+	this->ac = ac;
 }
 
 t_dm				*dm_dup(t_dm *this)
@@ -50,9 +51,22 @@ t_dm				*dm_dup(t_dm *this)
 
 	if (!(cp = (t_dm *)ft_memalloc(sizeof(t_dm) * 1)))
 		return (NULL);
-	env = vector_totab(this->env);
+	env = env_totab(this->env);
 	cp->env = env_tovector(env);
 	cp->arm = NULL;
 	cp->args = NULL;
 	return (cp);
+}
+
+void				dm_dup_update_args(t_dm *this, int index)
+{
+	char		**args;
+
+	args = &(this->args[index]);
+	int i = 0;
+	while (args[i])
+	{
+		ft_putendl(args[i]);
+		i++;
+	}
 }

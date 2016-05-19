@@ -28,12 +28,14 @@ typedef struct			s_dm
 	t_vector			*arm;
 	t_vector			*env;
 	char				**args;
+	int					ac;
 }						t_dm;
 
 t_dm					*dm_new(char **env);
 t_dm					*dm_dup(t_dm *this);
 void					dm_init(t_dm *this, char **env);
 void					dm_update(t_dm *this, char *line);
+void					dm_dup_update_args(t_dm *this, int index);
 
 /*
 **	BUILTIN_MANAGER.C
@@ -83,11 +85,13 @@ int						env_item_index(t_vector *env, char *name);
 **	ENV.C
 */
 
+char					**env_totab(t_vector *env);
 char					*env_findvalue(t_vector *env, char *name);
 t_vector				*env_arm_init(t_vector *env, int ac, char **av);
 t_vector				*env_tovector(char **env);
 void					env_set(t_vector *env, char *name, char *value);
 void					env_show(t_vector *env);
+void					env_clear(t_vector *env);
 
 /*
 **	BUILTIN.C
@@ -105,5 +109,6 @@ int						builtin_unsetenv(t_dm *);
 
 int						execute(t_dm *dm);
 void					execute_binary(t_dm *dm);
+char					*get_first_accessible_path(t_vector *env, char *bin_name);
 
 #endif

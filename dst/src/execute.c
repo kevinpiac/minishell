@@ -29,7 +29,7 @@ int				execute(t_dm *dm) // remove env here.
 	return (0);
 }
 
-static char		*get_first_accessible_path(t_vector *env, char *bin_name)
+char			*get_first_accessible_path(t_vector *env, char *bin_name)
 {
 	int				i;
 	char			*b;
@@ -68,7 +68,7 @@ void			execute_binary(t_dm *dm)
 	if (pid > 1)
 		wait(&status);
 	else if (pid == 0)
-		execve(bin, dm->args, vector_totab(dm->env));
+		execve(bin, dm->args, env_totab(dm->env));
 	else
 		ft_putendl_fd("ERROR", 2);
 }

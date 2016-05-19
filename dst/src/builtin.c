@@ -48,17 +48,23 @@ int			builtin_env(t_dm *dm)
 {
 	int			i;
 	t_dm		*dmcp;
+	char		*bin;
 
-	i = 0;
-	if (!dm->args[1] || ft_strequ(dm->args[1], "env"))
-		env_show(dm->env);
-	else if (ft_strequ(dm->args[1], "-i"))
+	dmcp = dm_dup(dm);
+	i = 1;
+	while (i < dm->ac)
 	{
-		dmcp = dm_dup(dm);
-//		env_set(dmcp->env, "TEST", "COUCOU");
-		env_show(dmcp->env);
-//		builtin_env(dm);
+		if (ft_strequ(dm->args[i], "-i"))
+			env_clear(dmcp->env);
+		if ((bin = get_first_accessible_path(dmcp->env, dm->args[i])))
+		{
+			dm_dup_update_args(dm, i);
+			return (-1);
+//			execute(dmcp);
+		}
+		i++;
 	}
+	env_show(dm->env);
 	return (0);
 }
 
