@@ -50,6 +50,7 @@ int			builtin_env(t_dm *dm)
 	t_dm		*dmcp;
 	char		*bin;
 	int			once;
+	char		**split;
 
 	dmcp = dm_dup(dm);
 	i = 1;
@@ -61,8 +62,12 @@ int			builtin_env(t_dm *dm)
 			env_clear(dmcp->env);
 			once++;
 		}
+		else if ((split = ft_strsplit(dm->args[i], '=')) && ft_splitcount(split) == 2) // create a function "is_toset_env"
+		{
+			env_set(dmcp->env, split[0], split[1])// here.
+		}
 		else if (get_first_accessible_path(dmcp->env, dm->args[i]))
-			ft_putendl("DETECTED A BINARY FILE");
+			ft_putendl("DETECTED A BINARY FILE"); //return here with new args in dm_cp
 		i++;
 	}
 	bin = NULL;
