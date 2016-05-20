@@ -16,7 +16,7 @@ NAME = minishell
 L_DIR = libft/
 F_DIR = src/
 H_DIR = ./includes
-FILES = main.c shell.c builtin.c execute.c builtin_manager.c env.c args.c \
+FILES = main.c shell.c builtin.c execute.c builtin_manager.c env.c \
 data_manager.c env_item.c
 FILES_PATH = $(addprefix $(F_DIR), $(FILES))
 

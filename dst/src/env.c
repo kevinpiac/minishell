@@ -45,7 +45,7 @@ void			env_set(t_vector *env, char *name, char *value)
 
 	if (ft_strchr(name, '=') || ft_strchr(value, '='))
 	{
-		ft_putendl_fd("Variable or value can not contain =", 2);
+		error_print(0, NULL, "variable or value can not contain =");
 		return ;
 	}
 	full = ft_strnew(ft_strlen(value) + ft_strlen(name) + 1);

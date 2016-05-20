@@ -34,7 +34,7 @@ int			builtin_cd(t_dm *dm)
 		env_set(env, "PWD", getcwd(new_pwd, sizeof(char *)));
 	}
 	else
-		ft_putendl_fd("cd: An error occured, no such file of directory.", 2);
+		error_print(2, args[1], NULL);
 	return (0);
 }
 
@@ -72,7 +72,7 @@ int			builtin_env(t_dm *dm)
 			split = ft_strsplit(dm->args[i], '=');
 			env_set(dmcp->env, split[0], split[1]);
 		}
-		else if (get_first_accessible_path(dmcp->env, dm->args[i]))
+		else
 		{
 			dm_dup_update_args(dmcp, dm->args, i);
 			return (execute(dmcp));
@@ -103,7 +103,7 @@ int			builtin_setenv(t_dm *dm)
 		}
 		else
 		{
-			ft_putendl_fd("Your should check the setenv usage on google ;D", 2);
+			error_print(0, "setenv", "usage: [name=value] or [name value]");
 			return (0);
 		}
 		i++;
@@ -127,7 +127,7 @@ int			builtin_unsetenv(t_dm *dm)
 			ft_putendl("Variable has been removed");
 		}
 		else
-			ft_putendl_fd("Variable not found", 2);
+			error_print(0, dm->args[i], "variable does not exist");
 		i++;
 	}
 	return (0);

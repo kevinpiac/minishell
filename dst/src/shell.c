@@ -12,6 +12,10 @@
 
 #include "minishell.h"
 
+/*
+** dm_update -> trim line spaces and tabs
+*/
+
 void			shell_loop(int ac, char **av, char **env)
 {
 	int				stop;

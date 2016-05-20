@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int				execute(t_dm *dm) // remove env here.
+int				execute(t_dm *dm)
 {
 	t_bm			*bm;
 	int				i;
@@ -65,7 +65,7 @@ void			execute_binary(t_dm *dm)
 	bin = get_first_accessible_path(dm->env, dm->args[0]);
 	if (!bin)
 	{
-		ft_putendl_fd("Minishell: command not found or not accessible", 2);
+		error_print(1, dm->args[0], NULL);
 		return ;
 	}
 	pid = fork();
@@ -74,5 +74,5 @@ void			execute_binary(t_dm *dm)
 	else if (pid == 0)
 		execve(bin, dm->args, env_totab(dm->env));
 	else
-		ft_putendl_fd("ERROR", 2);
+		error_print(0, NULL, "Fork command failed");
 }
