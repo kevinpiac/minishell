@@ -62,7 +62,12 @@ int			builtin_env(t_dm *dm)
 			env_clear(dmcp->env);
 			once++;
 		}
-		if (ft_strchr(dm->args[i], '='))
+		else if (ft_strequ(dm->args[i], "-u") && !once)
+		{
+			if (dm->args[i + 1] && ft_strchr(dm->args[i + 1], '='))
+				vector_delone(dmcp->env, i + 1);
+		}
+		else if (ft_strchr(dm->args[i], '='))
 		{
 			split = ft_strsplit(dm->args[i], '=');
 			env_set(dmcp->env, split[0], split[1]);
@@ -122,7 +127,7 @@ int			builtin_unsetenv(t_dm *dm)
 			ft_putendl("Variable has been removed");
 		}
 		else
-			ft_putendl_fd("unsetenv error message", 2);
+			ft_putendl_fd("Variable not found", 2);
 		i++;
 	}
 	return (0);
