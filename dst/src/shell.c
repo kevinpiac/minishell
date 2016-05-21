@@ -25,10 +25,7 @@ void			shell_loop(int ac, char **av, char **env)
 	while (!stop)
 	{
 		if (ac > 1 && ft_strequ(av[1], "--path"))
-		{
 			ft_putstr(getcwd(fullpath, sizeof(char *)));
-			ft_putchar(' ');
-		}
 		ft_putstr("$> ");
 		get_next_line(1, &line);
 		dm_update(dm, line);
