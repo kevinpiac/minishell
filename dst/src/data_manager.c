@@ -36,7 +36,15 @@ void				dm_update(t_dm *this, char *line)
 {
 	int			ac;
 	char		**av;
+	int			i;
 
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '\t')
+			line[i] = ' ';
+		i++;
+	}
 	av = ft_strsplit(line, ' ');
 	ac = ft_splitcount(av);
 //	this->arm = env_arm_init(this->env, ac, av);
