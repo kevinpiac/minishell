@@ -32,8 +32,10 @@ void				dm_init(t_dm *this, char **env_old)
 	this->args = NULL;
 }
 
-int					input_error(char *line, t_vector *env)
+void				dm_update(t_dm *this, char *line)
 {
+	int			ac;
+	char		**av;
 	int			i;
 
 	i = 0;
@@ -43,29 +45,6 @@ int					input_error(char *line, t_vector *env)
 			line[i] = ' ';
 		i++;
 	}
-	i = 0;
-	while (line[i])
-	{
-		if (i == 0 || line[i - 1] == ' ' || i == (int)ft_strlen(line) - 1
-			|| line[i + 1] == ' ')
-		{
-			if (line[i] == '~')
-			{
-				// if home path exists
-				// replace the ~ by home path
-			}
-		}
-		i++;
-	}
-	(void)env;
-	return (1);
-}
-
-void				dm_update(t_dm *this, char *line)
-{
-	int			ac;
-	char		**av;
-
 	av = ft_strsplit(line, ' ');
 	ac = ft_splitcount(av);
 //	this->arm = env_arm_init(this->env, ac, av);

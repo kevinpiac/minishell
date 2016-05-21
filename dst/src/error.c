@@ -1,36 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell.c                                            :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kpiacent <kpiacent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/04/11 15:13:31 by kpiacent          #+#    #+#             */
-/*   Updated: 2016/05/13 16:33:15 by kpiacent         ###   ########.fr       */
+/*   Created: 2016/05/13 16:33:27 by kpiacent          #+#    #+#             */
+/*   Updated: 2016/05/13 16:37:03 by kpiacent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-** dm_update -> trim line spaces and tabs
-*/
-
-void			shell_loop(int ac, char **av, char **env)
+int					error_tilde(char **args, t_vector *env)
 {
-	int				stop;
-	t_dm			*dm;
-	char			*line;
+	int			i;
+	int			j;
+	int			count;
 
-	stop = 0;
-	(void)ac;
-	(void)av;
-	dm = dm_new(env);
-	while (!stop)
+	count = 0;
+	i = 0;
+	while (args[i])
 	{
-		ft_putstr("$> ");
-		get_next_line(1, &line);
-		dm_update(dm, line);
-		stop = execute(dm);
+		j = 0;
+		while (args[i][j])
+		{
+			if (j == 0 && args[i][j] == '~')
+				count++;
+			j++;
+		}
+		i++;
 	}
+	if (count > 0 && !env_findvalue(env, "HOME"))
+	{
+		error_print(0, "~", "Unable to find HOME value in env");
+		return (1);
+	}
+	else if (count > 0)
+		ft_putendl("FOUND");
+	return (0);
 }

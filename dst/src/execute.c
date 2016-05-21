@@ -21,11 +21,13 @@ int				execute(t_dm *dm)
 	bin = dm->args[0];
 	i = -1;
 	bm = bm_new();
-	if (bin == NULL)
-		return (0);
-	if ((i = bm_search(bm, bin)) != -1)
-		return (bm_execute(bm, i, dm));
-	execute_binary(dm);
+	if (bin != NULL && !error_tilde(dm->args, dm->env))
+	{
+		if ((i = bm_search(bm, bin)) != -1)
+			return (bm_execute(bm, i, dm));
+		execute_binary(dm);
+
+	}
 	return (0);
 }
 
@@ -37,7 +39,7 @@ char			*get_first_accessible_path(t_vector *env, char *bin_name)
 	char			**paths;
 	char			*val;
 
- 	if ((bin_name[0] == '.' && bin_name[1] == '/') || bin_name[0] == '/')
+	if ((bin_name[0] == '.' && bin_name[1] == '/') || bin_name[0] == '/')
 	{
 		if (access(bin_name, X_OK) == 0)
 			return (bin_name);

@@ -113,9 +113,9 @@ void					execute_binary(t_dm *dm);
 char					*get_first_accessible_path(t_vector *env, char *bin_name);
 
 /*
-** INPUTCHECKER
+** ERROR.C
 */
 
-int						input_error(char *line, t_vector *env);
+int						error_tilde(char **args, t_vector *env);
 
 #endif
