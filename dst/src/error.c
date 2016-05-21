@@ -17,21 +17,25 @@ int					error_tilde(char **args, t_vector *env)
 	int			i;
 	int			j;
 	int			count;
+	char		*home;
 
 	count = 0;
 	i = 0;
+	home = env_findvalue(env, "HOME");
 	while (args[i])
 	{
 		j = 0;
 		while (args[i][j])
 		{
-			if (j == 0 && args[i][j] == '~')
+			if (args[i][j] == '~')
 				count++;
+			if (j == 0 && args[i][j] == '~' && home)
+				ft_putendl("REPLACE");
 			j++;
 		}
 		i++;
 	}
-	if (count > 0 && !env_findvalue(env, "HOME"))
+	if (count > 0 && !home)
 	{
 		error_print(0, "~", "Unable to find HOME value in env");
 		return (1);
