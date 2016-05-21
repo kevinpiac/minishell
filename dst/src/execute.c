@@ -37,8 +37,12 @@ char			*get_first_accessible_path(t_vector *env, char *bin_name)
 	char			**paths;
 	char			*val;
 
-	if (access(bin_name, X_OK) == 0)
-		return (bin_name);
+ 	if ((bin_name[0] == '.' && bin_name[1] == '/') || bin_name[0] == '/')
+	{
+		if (access(bin_name, X_OK) == 0)
+			return (bin_name);
+		return (NULL);
+	}
 	if ((val = env_findvalue(env, "PATH")))
 		paths = ft_strsplit(val, ':');
 	else
