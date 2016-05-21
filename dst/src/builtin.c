@@ -21,7 +21,8 @@ int			builtin_cd(t_dm *dm)
 
 	args = dm->args;
 	env = dm->env;
-	pwd = env_findvalue(env, "PWD");
+	pwd = NULL;
+	pwd = getcwd(pwd, sizeof(char *));
 	new_pwd = NULL;
 	if (args[1] == NULL && chdir(env_findvalue(env, "HOME")) == 0)
 	{
