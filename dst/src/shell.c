@@ -30,7 +30,10 @@ void			shell_loop(int ac, char **av, char **env)
 	{
 		ft_putstr("$> ");
 		get_next_line(1, &line);
-		dm_update(dm, line);
-		stop = execute(dm);
+		if (!input_error(line, dm->env))
+		{
+			dm_update(dm, line);
+			stop = execute(dm);
+		}
 	}
 }

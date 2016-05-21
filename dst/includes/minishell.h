@@ -112,4 +112,10 @@ int						execute(t_dm *dm);
 void					execute_binary(t_dm *dm);
 char					*get_first_accessible_path(t_vector *env, char *bin_name);
 
+/*
+** INPUTCHECKER
+*/
+
+int						input_error(char *line, t_vector *env);
+
 #endif
