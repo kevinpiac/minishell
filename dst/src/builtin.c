@@ -25,8 +25,8 @@ int			builtin_cd(t_dm *dm)
 	new_pwd = NULL;
 	if (args[1] == NULL && chdir(env_findvalue(env, "HOME")) == 0)
 	{
-			env_set(env, "OLDPWD", pwd);
-			env_set(env, "PWD", getcwd(new_pwd, sizeof(char *)));
+		env_set(env, "OLDPWD", pwd);
+		env_set(env, "PWD", getcwd(new_pwd, sizeof(char *)));
 	}
 	else if (args[1] != NULL && chdir(args[1]) == 0)
 	{
@@ -94,7 +94,8 @@ int			builtin_setenv(t_dm *dm)
 	i = 1;
 	while (i < ac)
 	{
-		if ((split = ft_strsplit(dm->args[i], '=')) && ft_splitcount(split) == 2)
+		if ((split = ft_strsplit(dm->args[i], '='))
+			&& ft_splitcount(split) == 2)
 			env_set(dm->env, split[0], split[1]);
 		else if (i + 1 < ac)
 		{

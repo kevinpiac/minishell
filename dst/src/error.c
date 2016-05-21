@@ -36,7 +36,5 @@ int					error_tilde(char **args, t_vector *env)
 		error_print(0, "~", "Unable to find HOME value in env");
 		return (1);
 	}
-	else if (count > 0)
-		ft_putendl("FOUND");
 	return (0);
 }

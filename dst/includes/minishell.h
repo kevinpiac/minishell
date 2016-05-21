@@ -41,7 +41,7 @@ void					dm_dup_update_args(t_dm *this, char **args, int index);
 **	BUILTIN_MANAGER.C
 */
 
-typedef struct 			s_bm
+typedef struct			s_bm
 {
 	char				**builtins;
 }						t_bm;
@@ -69,7 +69,7 @@ void					shell_launch(char **av);
 **	ENV_ITEM.C
 */
 
-typedef	struct 			s_env_item
+typedef	struct			s_env_item
 {
 	char				*name;
 	char				*value;
@@ -80,7 +80,7 @@ t_env_item				*env_item_new(char *env_line);
 t_env_item				*env_item_find(t_vector *env, char *name);
 void					env_item_init(t_env_item *this, char *env_line);
 int						env_item_index(t_vector *env, char *name);
-void					env_item_del(void *);
+void					env_item_del(void *item);
 
 /*
 **	ENV.C
@@ -101,8 +101,8 @@ void					env_clear(t_vector *env);
 int						builtin_cd(t_dm *dm);
 int						builtin_exit(void);
 int						builtin_env(t_dm *dm);
-int						builtin_setenv(t_dm *);
-int						builtin_unsetenv(t_dm *);
+int						builtin_setenv(t_dm *dm);
+int						builtin_unsetenv(t_dm *dm);
 
 /*
 ** EXECUTE.C
@@ -110,7 +110,8 @@ int						builtin_unsetenv(t_dm *);
 
 int						execute(t_dm *dm);
 void					execute_binary(t_dm *dm);
-char					*get_first_accessible_path(t_vector *env, char *bin_name);
+char					*get_first_accessible_path(t_vector *env,
+							char *bin_name);
 
 /*
 ** ERROR.C
