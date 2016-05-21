@@ -28,6 +28,7 @@ void				dm_init(t_dm *this, char **env_old)
 
 	env = env_tovector(env_old);
 	this->env = env;
+	shell_updatelvl(this->env);
 	this->arm = NULL;
 	this->args = NULL;
 }

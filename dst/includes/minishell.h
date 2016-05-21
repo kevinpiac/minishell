@@ -64,6 +64,7 @@ char					**args_make(t_vector *arm, char **env);
 
 void					shell_loop(int ac, char **av, char **env);
 void					shell_launch(char **av);
+void					shell_updatelvl(t_vector *env);
 
 /*
 **	ENV_ITEM.C
@@ -99,7 +100,7 @@ void					env_clear(t_vector *env);
 */
 
 int						builtin_cd(t_dm *dm);
-int						builtin_exit(void);
+int						builtin_exit(t_dm *dm);
 int						builtin_env(t_dm *dm);
 int						builtin_setenv(t_dm *dm);
 int						builtin_unsetenv(t_dm *dm);

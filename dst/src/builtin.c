@@ -39,9 +39,25 @@ int			builtin_cd(t_dm *dm)
 	return (0);
 }
 
-int			builtin_exit(void)
+int			builtin_exit(t_dm *dm)
 {
+	char		*clvl;
+	int			ilvl;
+
 	ft_putendl("Exiting...");
+	if ((clvl = env_findvalue(dm->env, "SHLVL")))
+	{
+		ilvl = ft_atoi(clvl);
+		if (ilvl == 3)
+			ft_putendl("Never give up!");
+		else if (ilvl == 2)
+			ft_putendl("Hope to see you soon :'(");
+		else
+		{
+			ft_putnbr(ilvl - 2);
+			ft_putendl(" level(s) remaining.");
+		}
+	}
 	return (1);
 }
 

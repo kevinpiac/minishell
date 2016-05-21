@@ -26,7 +26,6 @@ int				execute(t_dm *dm)
 		if ((i = bm_search(bm, bin)) != -1)
 			return (bm_execute(bm, i, dm));
 		execute_binary(dm);
-
 	}
 	return (0);
 }

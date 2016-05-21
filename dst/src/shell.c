@@ -12,10 +12,6 @@
 
 #include "minishell.h"
 
-/*
-** dm_update -> trim line spaces and tabs
-*/
-
 void			shell_loop(int ac, char **av, char **env)
 {
 	int				stop;
@@ -33,4 +29,19 @@ void			shell_loop(int ac, char **av, char **env)
 		dm_update(dm, line);
 		stop = execute(dm);
 	}
+}
+
+void			shell_updatelvl(t_vector *env)
+{
+	char			*clvl;
+	int				ilvl;
+
+	ilvl = 0;
+	if ((clvl = env_findvalue(env, "SHLVL")))
+		ilvl = ft_atoi(clvl);
+	if (ilvl >= 1)
+		ilvl++;
+	else
+		ilvl = 1;
+	env_set(env, "SHLVL", ft_itoa(ilvl));
 }
