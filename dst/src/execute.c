@@ -38,31 +38,24 @@ char			*get_first_accessible_path(t_vector *env, char *bin_name)
 	char			**paths;
 	char			*val;
 
-	if (is_dir(bin_name))
+	if (((bin_name[0] == '.' && bin_name[1] == '/') || bin_name[0] == '/')
+	&& access(bin_name, X_OK) == 0)
+		return (bin_name);
+	else if ((val = env_findvalue(env, "PATH"))
+	&& (paths = ft_strsplit(val, ':')))
 	{
-		error_print(0, bin_name, "Permission denied");
-		return (NULL);
+		i = 0;
+		while (paths[i])
+		{
+			b = ft_strjoin(paths[i], "/");
+			bin = ft_strjoin(b, bin_name);
+			free(b);
+			if (access(bin, X_OK) == 0)
+				return (bin);
+			i++;
+		}
 	}
-	if ((bin_name[0] == '.' && bin_name[1] == '/') || bin_name[0] == '/')
-	{
-		if (access(bin_name, X_OK) == 0)
-			return (bin_name);
-		return (NULL);
-	}
-	if ((val = env_findvalue(env, "PATH")))
-		paths = ft_strsplit(val, ':');
-	else
-		return (NULL);
-	i = 0;
-	while (paths[i])
-	{
-		b = ft_strjoin(paths[i], "/");
-		bin = ft_strjoin(b, bin_name);
-		free(b);
-		if (access(bin, X_OK) == 0)
-			return (bin);
-		i++;
-	}
+	error_print(1, bin_name, NULL);
 	return (NULL);
 }
 
@@ -72,12 +65,14 @@ void			execute_binary(t_dm *dm)
 	int				status;
 	char			*bin;
 
-	bin = get_first_accessible_path(dm->env, dm->args[0]);
-	if (!bin)
+	if (is_dir(dm->args[0]))
 	{
-		error_print(1, dm->args[0], NULL);
+		error_print(0, dm->args[0], "Permission denied");
 		return ;
 	}
+	bin = get_first_accessible_path(dm->env, dm->args[0]);
+	if (!bin)
+		return ;
 	pid = fork();
 	if (pid > 1)
 		wait(&status);
