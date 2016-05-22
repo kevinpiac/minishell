@@ -26,6 +26,11 @@ void			shell_loop(int ac, char **av, char **env)
 	{
 		if (ac > 1 && ft_strequ(av[1], "--path"))
 			ft_putstr(getcwd(fullpath, sizeof(char *)));
+		else if (ac > 1)
+		{
+			error_print(0, "minishell", "usage [--path]");
+			return ;
+		}
 		ft_putstr("$> ");
 		get_next_line(1, &line);
 		dm_update(dm, line);
