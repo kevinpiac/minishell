@@ -65,30 +65,19 @@ int			builtin_env(t_dm *dm)
 {
 	int			i;
 	t_dm		*dmcp;
-	char		*bin;
 	int			once;
-	char		**split;
 
 	dmcp = dm_dup(dm);
 	i = 1;
 	once = 0;
 	while (i < dm->ac)
 	{
-		if (ft_strequ(dm->args[i], "-i") && !once)
-		{
-			env_clear(dmcp->env);
-			once++;
-		}
-		else if (ft_strequ(dm->args[i], "-u") && !once)
-		{
-			if (dm->args[i + 1] && ft_strchr(dm->args[i + 1], '='))
-				vector_delone(dmcp->env, i + 1);
-		}
+		if (ft_strequ(dm->args[i], "-i") && !once++)
+			option_env_clear(dmcp->env);
+		else if (ft_strequ(dm->args[i], "-u") && dm->args[i + 1])
+			option_env_unset(dmcp->env, dm->args[++i]);
 		else if (ft_strchr(dm->args[i], '='))
-		{
-			split = ft_strsplit(dm->args[i], '=');
-			env_set(dmcp->env, split[0], split[1]);
-		}
+			option_env_set(dmcp->env, dm->args[i]);
 		else
 		{
 			dm_dup_update_args(dmcp, dm->args, i);
@@ -96,7 +85,6 @@ int			builtin_env(t_dm *dm)
 		}
 		i++;
 	}
-	bin = NULL;
 	env_show(dmcp->env);
 	return (0);
 }

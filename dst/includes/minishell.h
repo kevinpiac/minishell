@@ -92,7 +92,6 @@ t_vector				*env_arm_init(t_vector *env, int ac, char **av);
 t_vector				*env_tovector(char **env);
 void					env_set(t_vector *env, char *name, char *value);
 void					env_show(t_vector *env);
-void					env_clear(t_vector *env);
 
 /*
 **	BUILTIN.C
@@ -103,6 +102,14 @@ int						builtin_exit(t_dm *dm);
 int						builtin_env(t_dm *dm);
 int						builtin_setenv(t_dm *dm);
 int						builtin_unsetenv(t_dm *dm);
+
+/*
+** OPTIONS.C
+*/
+
+void					option_env_clear(t_vector *env);
+void					option_env_unset(t_vector *env, char *name);
+void					option_env_set(t_vector *env, char *to_split);
 
 /*
 ** EXECUTE.C
