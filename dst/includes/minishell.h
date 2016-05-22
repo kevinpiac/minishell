@@ -25,7 +25,6 @@
 
 typedef struct			s_dm
 {
-	t_vector			*arm;
 	t_vector			*env;
 	char				**args;
 	int					ac;

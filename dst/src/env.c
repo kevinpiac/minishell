@@ -100,39 +100,3 @@ void			env_clear(t_vector *env)
 	vector_foreach(env, &env_item_del);
 	env->total = 0;
 }
-
-// to remove
-t_vector		*env_arm_init(t_vector *env, int ac, char **av)
-{
-	t_vector		*arm;
-	t_arm_argument	*param;
-	char			*new_val;
-	char			*new_arg;
-	int				i;
-
-	i = 0;
-	arm = arm_init(ac, av);
-	while (i < arm->total)
-	{
-		param = arm->items[i];
-		new_val = ft_strreplace(param->name, "~", env_findvalue(env, "HOME"));
-		if (new_val)
-		{
-			param->name = new_val;
-			break;
-		}
-		i++;
-	}
-	i = 0;
-	while (av[i])
-	{
-		new_arg = ft_strreplace(av[i], "~", env_findvalue(env, "HOME"));
-		if (new_arg)
-		{
-			av[i] = new_arg;
-			break;
-		}
-		i++;
-	}
-	return (arm);
-}

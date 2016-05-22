@@ -29,7 +29,6 @@ void				dm_init(t_dm *this, char **env_old)
 	env = env_tovector(env_old);
 	this->env = env;
 	shell_updatelvl(this->env);
-	this->arm = NULL;
 	this->args = NULL;
 }
 
@@ -48,7 +47,6 @@ void				dm_update(t_dm *this, char *line)
 	}
 	av = ft_strsplit(line, ' ');
 	ac = ft_splitcount(av);
-//	this->arm = env_arm_init(this->env, ac, av);
 	this->args = av;
 	this->ac = ac;
 }
@@ -62,7 +60,6 @@ t_dm				*dm_dup(t_dm *this)
 		return (NULL);
 	env = env_totab(this->env);
 	cp->env = env_tovector(env);
-	cp->arm = NULL;
 	cp->args = NULL;
 	return (cp);
 }
